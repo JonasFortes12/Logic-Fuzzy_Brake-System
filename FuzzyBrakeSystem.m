@@ -2,10 +2,23 @@ addpath('src/'); %importa as funções auxiliares
 
 
 %______________________ Definição de Entradas ________________________
+pressureBrake = -1;
+carVelocity = -1;
+wheelVelocity = -1;
 
-pressureBrake = 60;
-carVelocity   = 80;
-wheelVelocity = 55;
+% Solicitar valores de entrada válidos
+while pressureBrake < 0 || pressureBrake > 100
+    pressureBrake = input('Insira a pressão no pedal (0-100): ');
+end
+
+while carVelocity < 0 || carVelocity > 100
+    carVelocity = input('Insira a velocidade do carro (0-100): ');
+end
+
+while wheelVelocity < 0 || wheelVelocity > 100
+    wheelVelocity = input('Insira a velocidade das rodas (0-100): ');
+end
+
 
 
 
@@ -33,7 +46,7 @@ c = centroid(pressureBrakeLow, pressureBrakeMedium, pressureBrakeHigh, carVeloci
 
 
 % Mostra resultado 
-disp(c);
+disp(strcat('Aplicar Freio', ' -> ', num2str(c)));
 
 
 

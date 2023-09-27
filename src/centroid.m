@@ -50,6 +50,7 @@ function Rule01 = rule01(pressureBrakeMedium)
 
 end
 
+
 % Regra 2: Retorna o quanto aplica o freio
 function Rule02 = rule02(pressureBrakeHigh, carVelocityHigh, wheelVelocityHigh)
     
