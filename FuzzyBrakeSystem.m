@@ -8,12 +8,17 @@ trimPressureBrake = [[0,0,50],[30,50,70],[50,100,100]];
 trimVelocity = [[0,0,60],[20,50,80],[40,100,100]];
 
 
+pressureBrakeLow = pertinence(60,trimPressureBrake(1,1:3));
+pressureBrakeMedium = pertinence(60,trimPressureBrake(1,4:6));
+pressureBrakeHigh = pertinence(60,trimPressureBrake(1,7:9));
+
+carVelocityHigh = pertinence(80,trimVelocity(1,7:9));
+
+wheelVelocityLow = pertinence(55,trimVelocity(1,1:3));
+wheelVelocityHigh = pertinence(55,trimVelocity(1,7:9));
 
 
-
-disp(rule01(pertinence(80,trimPressureBrake(1,1:3))));
-
-
+centroid(pressureBrakeLow, pressureBrakeMedium, pressureBrakeHigh, carVelocityHigh, wheelVelocityLow, wheelVelocityHigh);
 
 
 
