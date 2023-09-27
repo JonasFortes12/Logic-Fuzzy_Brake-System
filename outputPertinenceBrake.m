@@ -1,3 +1,4 @@
+
 function OutputPertinenceBrake = outputPertinenceBrake(brakeFree, brakeAply, x)
     
     Xbf = brakeFree*100;

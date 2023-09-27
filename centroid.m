@@ -8,11 +8,21 @@ function Centroid = centroid(pressureBrakeLow,pressureBrakeMedium,pressureBrakeH
 
     brakePertinences = trueMeasure(pressureBrakeLow,pressureBrakeMedium,pressureBrakeHigh, carVelocityHigh, wheelVelocityLow, wheelVelocityHigh);
 
-    disp(brakePertinences);
+    brakeFree = brakePertinences(1);
+    brakeAply = brakePertinences(2);
+    
+    X = 0:5:100;
 
-    % Calcular centroide aqui com base na função de pertinencia 
-    % da saída (combinação do quanto 'liberar' e  'aplicar' o freio)
-    % outputPertinenceBrake.m
+    numerator = [];
+    denominator = [];
+
+    for i = X
+        numerator = [numerator, i*outputPertinenceBrake(brakeFree, brakeAply, i)];
+        denominator = [denominator, outputPertinenceBrake(brakeFree, brakeAply, i)];
+    end
+    
+    Centroid = sum(numerator)/sum(denominator);
+
     
 end
 
