@@ -11,7 +11,7 @@ function Centroid = centroid(pressureBrakeLow,pressureBrakeMedium,pressureBrakeH
     brakeFree = brakePertinences(1);
     brakeAply = brakePertinences(2);
     
-    X = 0:5:100;
+    X = 0:1:100;
 
     numerator = [];
     denominator = [];
