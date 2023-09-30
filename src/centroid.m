@@ -1,8 +1,4 @@
-
-
-
-
-% Função principal
+% Função principal da centroide
 function Centroid = centroid(pressureBrakeLow,pressureBrakeMedium,pressureBrakeHigh, carVelocityHigh, wheelVelocityLow, wheelVelocityHigh)
     
 
@@ -11,19 +7,10 @@ function Centroid = centroid(pressureBrakeLow,pressureBrakeMedium,pressureBrakeH
     brakeFree = brakePertinences(1);
     brakeAply = brakePertinences(2);
     
-    X = 0:1:100;
+    coordinates = centroidAreaCalculation(brakeFree,brakeAply);
 
-    numerator = [];
-    denominator = [];
+    Centroid = [coordinates(1), coordinates(2)];
 
-    for i = X
-        numerator = [numerator, i*outputPertinenceBrake(brakeFree, brakeAply, i)];
-        denominator = [denominator, outputPertinenceBrake(brakeFree, brakeAply, i)];
-    end
-    
-    Centroid = sum(numerator)/sum(denominator);
-
-    
 end
 
 
@@ -86,6 +73,35 @@ function Rule04 = rule04(pressureBrakeLow)
 
 end
 
+
+function CentroidAreaCalculation = centroidAreaCalculation(brakeFree,brakeAply)
+    
+    %Cria área do triangulo 'liberar freio'
+    triangleFreeBrake = polyshape([0,0; 0,1; 100,0]);
+
+    %Cria área do triangulo 'aplicar freio'
+    triangleAplyBrake = polyshape([0,0; 100,1; 100,0]);
+
+    %Cria áreas delimitadas pelos valores 'aplicar freio' e 'liberar freio'
+    %retornado pelas regras nebulosas
+    retangleFreeBrake = polyshape([0,0; 0,brakeFree; 100,brakeFree; 100,0]);
+    retangleAplyBrake = polyshape([0,0; 0,brakeAply; 100,brakeAply; 100,0]);
+    
+
+    %Cria a interseção entre a área delimitada pelos resultados das regras
+    %de entrada e a área dos triangulos das regras nebulosas de saídas
+    areaFreeBrake = intersect(triangleFreeBrake, retangleFreeBrake);
+    areaAplyBrake = intersect(triangleAplyBrake, retangleAplyBrake);
+
+    %Une as áreas de cada diretiva 'liberar freio' e 'aplicar freio'
+    areaFreeAndAplyBrake = union(areaFreeBrake,areaAplyBrake);
+
+    % Retorna as coordenadas x e y da centroide da área resultante
+    [x, y] = centroid(areaFreeAndAplyBrake);
+
+    CentroidAreaCalculation = [x, y];
+
+end
 
 
 

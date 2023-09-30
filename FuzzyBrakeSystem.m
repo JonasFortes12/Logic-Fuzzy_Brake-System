@@ -36,17 +36,18 @@ trimVelocity = [[0,0,60],[20,50,80],[40,100,100]];
 pressureBrakeLow = pertinence(pressureBrake,trimPressureBrake(1,1:3));
 pressureBrakeMedium = pertinence(pressureBrake,trimPressureBrake(1,4:6));
 pressureBrakeHigh = pertinence(pressureBrake,trimPressureBrake(1,7:9));
+
 carVelocityHigh = pertinence(carVelocity,trimVelocity(1,7:9));
 wheelVelocityLow = pertinence(wheelVelocity,trimVelocity(1,1:3));
 wheelVelocityHigh = pertinence(wheelVelocity,trimVelocity(1,7:9));
 
 
-% Calcula a centroide com base nas pertinencias em cada variável debulosa
-c = centroid(pressureBrakeLow, pressureBrakeMedium, pressureBrakeHigh, carVelocityHigh, wheelVelocityLow, wheelVelocityHigh);
+% Calcula a coordenada X da centroide com base nas pertinencias em cada variável debulosa
+CentroidCoordinates = centroid(pressureBrakeLow, pressureBrakeMedium, pressureBrakeHigh, carVelocityHigh, wheelVelocityLow, wheelVelocityHigh);
 
 
 % Mostra resultado 
-disp(strcat('Aplicar Freio', ' -> ', num2str(c)));
+disp(strcat('Aplicar Freio', ' -> ', num2str(CentroidCoordinates(1))));
 
 
 
