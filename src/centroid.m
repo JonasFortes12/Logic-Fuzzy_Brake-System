@@ -73,7 +73,10 @@ function Rule04 = rule04(pressureBrakeLow)
 
 end
 
+%____________________________________
 
+% Função para calcular as coordenadas da centroid da área de interseção
+% entre as pertinências 'liberar' e 'aplicar' o freio
 function CentroidAreaCalculation = centroidAreaCalculation(brakeFree,brakeAply)
     
     %Cria área do triangulo 'liberar freio'
@@ -82,11 +85,12 @@ function CentroidAreaCalculation = centroidAreaCalculation(brakeFree,brakeAply)
     %Cria área do triangulo 'aplicar freio'
     triangleAplyBrake = polyshape([0,0; 100,1; 100,0]);
 
+    warning('off', 'all');
     %Cria áreas delimitadas pelos valores 'aplicar freio' e 'liberar freio'
     %retornado pelas regras nebulosas
     retangleFreeBrake = polyshape([0,0; 0,brakeFree; 100,brakeFree; 100,0]);
     retangleAplyBrake = polyshape([0,0; 0,brakeAply; 100,brakeAply; 100,0]);
-    
+    warning('on', 'all');
 
     %Cria a interseção entre a área delimitada pelos resultados das regras
     %de entrada e a área dos triangulos das regras nebulosas de saídas
@@ -95,12 +99,14 @@ function CentroidAreaCalculation = centroidAreaCalculation(brakeFree,brakeAply)
 
     %Une as áreas de cada diretiva 'liberar freio' e 'aplicar freio'
     areaFreeAndAplyBrake = union(areaFreeBrake,areaAplyBrake);
-
+    
     % Retorna as coordenadas x e y da centroide da área resultante
     [x, y] = centroid(areaFreeAndAplyBrake);
-
+    
     CentroidAreaCalculation = [x, y];
+    
 
+    plotCentroid(areaFreeAndAplyBrake, brakeFree,brakeAply, x, y)
 end
 
 

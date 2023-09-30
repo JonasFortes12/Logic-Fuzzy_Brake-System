@@ -18,13 +18,7 @@ function Pertinence = pertinence(value, trim)
             Pertinence = 0;
         end
         
-    
     end
-
-
-
-
-    
 
 end
 
