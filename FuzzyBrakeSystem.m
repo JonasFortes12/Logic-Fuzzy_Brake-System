@@ -1,5 +1,8 @@
-addpath('src/'); %importa as funções auxiliares 
+% Integrantes:
+% Jonas Carvalho Fortes - 494513
+% Íris Cordeiro Costa   - 497503
 
+addpath('src/'); %importa as funções auxiliares 
 
 %______________________ Definição de Entradas ________________________
 pressureBrake = -1;
@@ -51,7 +54,7 @@ wheelVelocityHigh = pertinence(wheelVelocity,trimVelocity(3,:));
 
 
 % Calcula as coordenadas x e y da centroide com base nas pertinencias em
-% cada variável debulosa aplicadas às regras de inferências
+% cada variável nebulosa aplicadas às regras de inferências
 CentroidCoordinates = centroid(pressureBrakeLow, pressureBrakeMedium, pressureBrakeHigh, carVelocityHigh, wheelVelocityLow, wheelVelocityHigh);
 
 

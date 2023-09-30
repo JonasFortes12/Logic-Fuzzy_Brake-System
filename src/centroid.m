@@ -26,7 +26,7 @@ end
 
 %______________________ Regras Nebulosas _______________________________
 
-% Regra 1: Retorna o quanto aplica o freio
+% Regra 1: Retorna o quanto apertar o freio
 function Rule01 = rule01(pressureBrakeMedium)
     
     if pressureBrakeMedium ~= 0
@@ -38,7 +38,7 @@ function Rule01 = rule01(pressureBrakeMedium)
 end
 
 
-% Regra 2: Retorna o quanto aplica o freio
+% Regra 2: Retorna o quanto apertar o freio
 function Rule02 = rule02(pressureBrakeHigh, carVelocityHigh, wheelVelocityHigh)
     
     if pressureBrakeHigh ~= 0 && carVelocityHigh ~= 0 && wheelVelocityHigh ~= 0
@@ -50,7 +50,7 @@ function Rule02 = rule02(pressureBrakeHigh, carVelocityHigh, wheelVelocityHigh)
 end
 
 
-% Regra 3: Retorna o quanto libera o freio
+% Regra 3: Retorna o quanto liberar o freio
 function Rule03 = rule03(pressureBrakeHigh, carVelocityHigh, wheelVelocityLow)
     
     if pressureBrakeHigh ~= 0 && carVelocityHigh ~= 0 && wheelVelocityLow ~= 0
@@ -62,7 +62,7 @@ function Rule03 = rule03(pressureBrakeHigh, carVelocityHigh, wheelVelocityLow)
 end
 
 
-% Regra 4: Retorna o quanto libera o freio
+% Regra 4: Retorna o quanto liberar o freio
 function Rule04 = rule04(pressureBrakeLow)
     
     if pressureBrakeLow ~= 0
@@ -73,20 +73,19 @@ function Rule04 = rule04(pressureBrakeLow)
 
 end
 
-%____________________________________
 
-% Função para calcular as coordenadas da centroid da área de interseção
-% entre as pertinências 'liberar' e 'aplicar' o freio
+% Função para calcular as coordenadas da centroide da área de interseção
+% entre as pertinências 'liberar' e 'apertar' o freio
 function CentroidAreaCalculation = centroidAreaCalculation(brakeFree,brakeAply)
     
     %Cria área do triangulo 'liberar freio'
     triangleFreeBrake = polyshape([0,0; 0,1; 100,0]);
 
-    %Cria área do triangulo 'aplicar freio'
+    %Cria área do triangulo 'apertar freio'
     triangleAplyBrake = polyshape([0,0; 100,1; 100,0]);
 
     warning('off', 'all');
-    %Cria áreas delimitadas pelos valores 'aplicar freio' e 'liberar freio'
+    %Cria áreas delimitadas pelos valores 'apertar freio' e 'liberar freio'
     %retornado pelas regras nebulosas
     retangleFreeBrake = polyshape([0,0; 0,brakeFree; 100,brakeFree; 100,0]);
     retangleAplyBrake = polyshape([0,0; 0,brakeAply; 100,brakeAply; 100,0]);
@@ -97,7 +96,7 @@ function CentroidAreaCalculation = centroidAreaCalculation(brakeFree,brakeAply)
     areaFreeBrake = intersect(triangleFreeBrake, retangleFreeBrake);
     areaAplyBrake = intersect(triangleAplyBrake, retangleAplyBrake);
 
-    %Une as áreas de cada diretiva 'liberar freio' e 'aplicar freio'
+    %Une as áreas de cada diretiva 'liberar freio' e 'apertar freio'
     areaFreeAndAplyBrake = union(areaFreeBrake,areaAplyBrake);
     
     % Retorna as coordenadas x e y da centroide da área resultante
